@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./banner.jpg" alt="AndroidFolate" style="max-height: 220px; object-fit: cover;">
+  <img src="https://raw.githubusercontent.com/figranium/androidfolate/refs/heads/main/banner.png" alt="AndroidFolate" style="max-height: 220px; object-fit: cover;">
 </p>
 
 <p align="center">
@@ -39,7 +39,7 @@ Hardware NPU acceleration requires **6 GB+ physical RAM** (~5.2 GB usable RAM fl
 | NPU Vendor | Supported SoCs | Example Supported Devices (6 GB+ RAM) |
 | :--- | :--- | :--- |
 | **Google Tensor** | Tensor G2 and newer (all Pixel 7 series onwards) | Pixel 7a / 7 / 7 Pro, Pixel 8a / 8 / 8 Pro, Pixel 9 / 9 Pro / 9 Pro Fold, Pixel 10 / 11 series |
-| **Qualcomm Hexagon** | Snapdragon 8-series and upper 7-series | Galaxy S22–S26 (Snapdragon), OnePlus 10–15, Nothing Phone (2) / (3), Poco F5 / F6 |
+| **Qualcomm Hexagon** | Snapdragon 8-series and upper 7-series | Galaxy S22–S26 (Snapdragon), OnePlus 10–15, Nothing Phone (2) / (3) / (4a), Poco F5 / F6 |
 | **Samsung Exynos** | Exynos 1380, 1480, 1580, and 2400+ series | Galaxy A54 / A55 / A56 (6 GB / 8 GB+), Galaxy S24 / S24+ (Exynos), Galaxy Z Flip 7, Galaxy S26 |
 | **MediaTek APU** | Dimensity 7200, 8000-series, and 9000-series | Redmi Note 13 Pro+, Nothing Phone (2a), Xiaomi 13T / 14T Pro, Vivo X100 / X200 |
 
@@ -48,7 +48,7 @@ Hardware NPU acceleration requires **6 GB+ physical RAM** (~5.2 GB usable RAM fl
 Devices lacking a transformer-capable NPU or falling below the usable memory floor are excluded to maintain on-device performance:
 
 - **Devices with <= 4 GB RAM:** Entry-level 4 GB devices fall below the ~5.2 GB usable RAM floor and cannot safely host the runtime alongside foreground apps.
-- **Budget / Older SoCs:** Budget lines such as the **Galaxy A1x series**, older **Snapdragon 6-series** chips lacking transformer-capable NPUs, and non-Android platforms (iOS/iPadOS).
+- **Budget / Older SoCs:** Budget lines such as the **Galaxy A1x series**, 6-series Snapdragon chips (including **Nothing Phone (4b)** on Snapdragon 6 Gen 4) lacking transformer-capable NPUs, and non-Android platforms (iOS/iPadOS).
 
 ## Planned Usage
 
