@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./banner.jpg" alt="AndroidFolate" style="max-height: 220px; object-fit: cover;">
+  <img src="./banner.png" alt="AndroidFolate" style="max-height: 220px; object-fit: cover;">
 </p>
 
 <p align="center">
