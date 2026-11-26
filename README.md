@@ -31,21 +31,21 @@ AndroidFolate acts as a fast, zero-hallucination UI grounding engine for single-
 
 ## Supported Hardware & NPU Matrix
 
-Hardware NPU acceleration requires **8 GB+ RAM** and a SoC supported by LiteRT's vendor NPU delegates (`CompiledModel` API):
+Hardware NPU acceleration requires **8 GB+ RAM** and a dedicated transformer-capable NPU across flagship and upper-midrange Android devices (generally 2022 onwards):
 
-| NPU Vendor / Delegate | Supported SoCs | Example Supported Devices (8 GB+ RAM) |
+| NPU Vendor | Supported SoCs | Example Supported Devices (8 GB+ RAM) |
 | :--- | :--- | :--- |
-| **Google Tensor** (Tensor SDK) | Tensor G5 (`Tensor_G5`), Tensor G6 (`Tensor_G6`) | Pixel 10, Pixel 10 Pro, Pixel 10 Pro XL, Pixel 10 Pro Fold, Pixel 11 series |
-| **Qualcomm Hexagon** (QNN HTP) | Snapdragon 8 Gen 1 (`SM8450`), 8+ Gen 1 (`SM8475`), 8 Gen 2 (`SM8550`), 8 Gen 3 (`SM8650`), 8 Elite (`SM8750`), 8 Elite Gen 5 (`SM8850`) | Galaxy S23 / S24 / S25 / S26 (Snapdragon), OnePlus 11 / 12 / 13 / 15, Xiaomi 14 / 15 / 17 |
-| **Samsung Exynos** (AI LiteCore) | Exynos 2500 (`E9955`), Exynos 2600 (`E9965`) | Galaxy Z Flip 7 (Exynos 2500), Galaxy S26 / S26+ (Exynos 2600) |
-| **MediaTek APU** (NeuroPilot) | Dimensity 7300 (`MT6878`), 8300 (`MT6897`), 9000 (`MT6983`), 9200 (`MT6985`), 9300 / 9300+ (`MT6989`), 9400 (`MT6991`), 9500 (`MT6990`) | Galaxy Tab S10+ / S10 Ultra, Xiaomi 14T Pro, Vivo X100 / X200, OPPO Find X8 |
+| **Google Tensor** | Tensor G2 and newer (all Pixel 7 series onwards) | Pixel 7 / 7 Pro, Pixel 8 / 8 Pro, Pixel 9 / 9 Pro / 9 Pro Fold, Pixel 10 / 11 series |
+| **Qualcomm Hexagon** | Snapdragon 8-series and upper 7-series | Galaxy S22–S26 (Snapdragon), OnePlus 10–15, Nothing Phone (2) / (3), Poco F5 / F6 |
+| **Samsung Exynos** | Exynos 1380, 1480, 1580, and 2400+ series | Galaxy A54 / A55 / A56, Galaxy S24 / S24+ (Exynos), Galaxy Z Flip 7, Galaxy S26 |
+| **MediaTek APU** | Dimensity 7200, 8000-series, and 9000-series | Redmi Note 13 Pro+, Nothing Phone (2a), Xiaomi 13T / 14T Pro, Vivo X100 / X200 |
 
 ### Unsupported Hardware Examples
 
-Devices without a LiteRT-supported NPU delegate or with insufficient memory are not supported for NPU-accelerated inference:
+Devices lacking a transformer-capable NPU or sufficient memory are excluded to maintain on-device performance:
 
-- **Under 8 GB RAM:** Entry-level and older devices with 4 GB or 6 GB RAM (e.g., Pixel 6a, Galaxy A15 4 GB, Redmi Note base 6 GB variants) exceed the safe background memory ceiling alongside foreground apps.
-- **Older / Non-Delegate SoCs:** Earlier Tensor generations (Tensor G1–G4 on Pixel 6–9 series), older Exynos chips (Exynos 2400 and earlier, such as Galaxy S24 Exynos or Galaxy A55 Exynos 1480), mid-range Snapdragon 6/7-series chips lacking QNN HTP delegate support, and non-Android platforms (iOS/iPadOS).
+- **Under 8 GB RAM:** Entry-level and older models with 4 GB or 6 GB RAM (e.g., Galaxy A1x series, Pixel 6a, base 6 GB budget variants) exceed the safe background memory ceiling alongside foreground apps.
+- **Budget / Older SoCs:** Budget lines such as the **Galaxy A1x series**, older **Snapdragon 6-series** chips lacking transformer-capable NPUs, and non-Android platforms (iOS/iPadOS).
 
 ## Planned Usage
 
