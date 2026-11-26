@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./banner.png" alt="AndroidFolate" style="max-height: 220px; object-fit: cover;">
+  <img src="./banner.jpg" alt="AndroidFolate" style="max-height: 220px; object-fit: cover;">
 </p>
 
 <p align="center">
@@ -28,6 +28,24 @@ AndroidFolate acts as a fast, zero-hallucination UI grounding engine for single-
 
 - **Backbone:** `ElectraForSequenceClassification` (`24` transformer layers, `1024` hidden size, `16` attention heads, `num_labels=1`) initialized from `google/electra-large-discriminator` (`335M` parameters).
 - **Serialization Schema:** Normalizes framework-specific node attributes (`className`, `resource-id`, `testID`, `contentDescription`, `accessibilityLabel`, Flutter Semantics `label`/`hint`, ARIA labels, visible `text`, and interactive state flags) while pruning unlabeled layout containers.
+
+## Supported Hardware & NPU Matrix
+
+Hardware NPU acceleration requires **8 GB+ RAM** and a SoC supported by LiteRT's vendor NPU delegates (`CompiledModel` API):
+
+| NPU Vendor / Delegate | Supported SoCs | Example Supported Devices (8 GB+ RAM) |
+| :--- | :--- | :--- |
+| **Google Tensor** (Tensor SDK) | Tensor G5 (`Tensor_G5`), Tensor G6 (`Tensor_G6`) | Pixel 10, Pixel 10 Pro, Pixel 10 Pro XL, Pixel 10 Pro Fold, Pixel 11 series |
+| **Qualcomm Hexagon** (QNN HTP) | Snapdragon 8 Gen 1 (`SM8450`), 8+ Gen 1 (`SM8475`), 8 Gen 2 (`SM8550`), 8 Gen 3 (`SM8650`), 8 Elite (`SM8750`), 8 Elite Gen 5 (`SM8850`) | Galaxy S23 / S24 / S25 / S26 (Snapdragon), OnePlus 11 / 12 / 13 / 15, Xiaomi 14 / 15 / 17 |
+| **Samsung Exynos** (AI LiteCore) | Exynos 2500 (`E9955`), Exynos 2600 (`E9965`) | Galaxy Z Flip 7 (Exynos 2500), Galaxy S26 / S26+ (Exynos 2600) |
+| **MediaTek APU** (NeuroPilot) | Dimensity 7300 (`MT6878`), 8300 (`MT6897`), 9000 (`MT6983`), 9200 (`MT6985`), 9300 / 9300+ (`MT6989`), 9400 (`MT6991`), 9500 (`MT6990`) | Galaxy Tab S10+ / S10 Ultra, Xiaomi 14T Pro, Vivo X100 / X200, OPPO Find X8 |
+
+### Unsupported Hardware Examples
+
+Devices without a LiteRT-supported NPU delegate or with insufficient memory are not supported for NPU-accelerated inference:
+
+- **Under 8 GB RAM:** Entry-level and older devices with 4 GB or 6 GB RAM (e.g., Pixel 6a, Galaxy A15 4 GB, Redmi Note base 6 GB variants) exceed the safe background memory ceiling alongside foreground apps.
+- **Older / Non-Delegate SoCs:** Earlier Tensor generations (Tensor G1–G4 on Pixel 6–9 series), older Exynos chips (Exynos 2400 and earlier, such as Galaxy S24 Exynos or Galaxy A55 Exynos 1480), mid-range Snapdragon 6/7-series chips lacking QNN HTP delegate support, and non-Android platforms (iOS/iPadOS).
 
 ## Planned Usage
 
