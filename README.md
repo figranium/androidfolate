@@ -5,18 +5,20 @@
 <p align="center">
   <a href="https://huggingface.co/figranium/folate"><strong>Folate (Web)</strong></a>
   &nbsp;&bull;&nbsp;
+  <a href="https://github.com/figranium/frowse"><strong>Frowse (CLI Harness)</strong></a>
+  &nbsp;&bull;&nbsp;
   <a href="https://www.apache.org/licenses/LICENSE-2.0"><strong>Apache 2.0 License</strong></a>
 </p>
 
-**AndroidFolate** *(Upcoming — January 2027)* is a dedicated, on-device neural UI element ranker built for autonomous Android automation within tight mobile memory constraints (**6 GB physical RAM minimum / 8 GB+ recommended** on physical devices, plus **first-class emulated Android support on desktop** via host-side inference). Fine-tuned from [`google/electra-large-discriminator`](https://huggingface.co/google/electra-large-discriminator) (`335M` parameters) as a discriminative cross-encoder on multi-framework Android accessibility trees and quantized to **INT8 (~335 MB)**, AndroidFolate runs via **LiteRT** with hardware NPU acceleration across **Google Tensor**, **Qualcomm Hexagon**, **Samsung Exynos**, and **MediaTek APU**—and routes emulated Android sessions directly to the desktop host's native accelerators without requiring PyTorch or `transformers` at inference time.
+**AndroidFolate** *(Upcoming — January 2027)* is a dedicated, on-device neural UI element ranker built for autonomous Android automation within tight mobile memory constraints (**6 GB physical RAM minimum / 8 GB+ recommended** on physical devices, plus **host-offloaded inference support** for desktop emulators). Fine-tuned from [`google/electra-large-discriminator`](https://huggingface.co/google/electra-large-discriminator) (`335M` parameters) as a discriminative cross-encoder on multi-framework Android accessibility trees and quantized to **INT8 (~335 MB)**, AndroidFolate runs via **LiteRT** with hardware NPU acceleration across **Google Tensor**, **Qualcomm Hexagon**, **Samsung Exynos**, and **MediaTek APU**—and executes directly on desktop host accelerators when grounding trees dumped from emulated Android sessions without requiring PyTorch or `transformers` at inference time.
 
-AndroidFolate acts as a fast, zero-hallucination UI grounding engine for single-step Android actions (`click`, `type`, `scroll`, `long_click`) across **Native Android Views / Jetpack Compose**, **React Native**, **Flutter**, and embedded **WebViews**.
+AndroidFolate acts as a fast, zero-hallucination UI grounding engine for single-step Android actions (`click`, `type`, `scroll`, `long_click`) across **Native Android Views / Jetpack Compose**, **React Native**, **Flutter**, and embedded **WebViews**. For a turnkey desktop CLI and emulator automation harness (AVD discovery, compact tree snapshots, session management, and action execution), see **[Frowse](https://github.com/figranium/frowse)** (`AndroidDriver`).
 
 ## Highlights
 
 - **Multi-Framework Accessibility Grounding:** Unified serialization schema covering **Native Views / Jetpack Compose**, **React Native**, **Flutter** Semantics trees, and embedded **WebViews**.
 - **All Four Mobile NPU Vendors at Launch:** Static-bucketed **INT8 LiteRT** compilation targeting **Google Tensor**, **Qualcomm Hexagon**, **Samsung Exynos**, and **MediaTek APU**.
-- **First-Class Emulated Android on Desktop:** Detects desktop emulators/VMs, bypasses physical SoC allowlists, and streams serialized accessibility trees over a local **ADB / gRPC bridge** so the INT8 model executes outside the emulator on **Apple Neural Engine (ANE)**, **desktop GPU**, or **CPU XNNPACK**.
+- **Host-Offloaded Inference for Desktop Emulators:** Accepts serialized accessibility trees extracted from desktop emulators/VMs (via **[Frowse](https://github.com/figranium/frowse)** `AndroidDriver` or custom ADB/UIAutomator harnesses), bypassing physical SoC allowlists so the INT8 model runs natively on the desktop host (**Apple Neural Engine / Core ML**, **desktop GPU**, or **CPU XNNPACK**).
 - **Tiered 6 GB / 8 GB+ Physical Memory Footprint:** Compact ~335 MB INT8 model with on-demand NPU session unloading on **6 GB RAM** devices (~5.2 GB usable RAM floor) and persistent warm NPU sessions on **8 GB+ RAM** devices.
 - **Zero-Hallucination Node Resolution:** Scores and ranks only interactive nodes present in the live `AccessibilityNodeInfo` hierarchy—never inventing coordinates or missing elements.
 
@@ -46,10 +48,10 @@ Hardware NPU acceleration requires **6 GB+ physical RAM** (~5.2 GB usable RAM fl
 | **Samsung Exynos** | Exynos 1380, 1480, 1580, and 2400+ series | Galaxy A54 / A55 / A56 (6 GB / 8 GB+), Galaxy S24 / S24+ (Exynos), Galaxy Z Flip 7, Galaxy S26 |
 | **MediaTek APU** | Dimensity 7200, 8000-series, and 9000-series | Redmi Note 13 Pro+, Nothing Phone (2a), Xiaomi 13T / 14T Pro, Vivo X100 / X200 |
 
-### Emulated Android on Desktop (First-Class Host Inference)
+### Emulated Android on Desktop (Host-Offloaded Inference)
 
 - **Supported Environments:** Android Studio AVD, Cuttlefish, Waydroid, Genymotion, and desktop Android VMs on macOS, Linux, and Windows.
-- **Host-Offloaded Execution:** Instead of emulating a mobile NPU or consuming guest VM memory inside the emulator, AndroidFolate detects the emulated environment, bypasses physical SoC allowlists, and routes accessibility trees over a local **ADB / gRPC bridge** to run the INT8 model natively on the desktop host (**Apple Silicon Neural Engine**, **desktop GPU**, or **CPU XNNPACK**).
+- **Harness-Decoupled Execution:** Instead of emulating a mobile NPU or consuming guest VM memory inside the emulator, AndroidFolate processes accessibility trees extracted by an external host harness—such as **[Frowse](https://github.com/figranium/frowse)** (`AndroidDriver`) or custom ADB/UIAutomator pipelines—bypassing physical SoC allowlists so the INT8 model runs natively on the desktop host (**Apple Silicon Neural Engine / Core ML**, **desktop GPU**, or **CPU XNNPACK**).
 
 ### Unsupported Hardware Examples
 
@@ -65,6 +67,8 @@ Model weights (`figranium/androidfolate` on Hugging Face), serialization utiliti
 ```bash
 hf download figranium/androidfolate --local-dir ./androidfolate-int8
 ```
+
+For end-to-end CLI automation on desktop emulators or ADB-connected devices, use **[Frowse](https://github.com/figranium/frowse)** with `AndroidDriver`.
 
 ## Framework-Stratified Evaluation
 
